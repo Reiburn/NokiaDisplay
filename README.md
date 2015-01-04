@@ -1,4 +1,4 @@
 NokiaDisplay
 ============
 
-The fastest, 100% framebuffered Nokia 3310/PCD8544 display driver for the Arduino
+A fast and light framebuffered Nokia 3310 display driver for the Arduino.
