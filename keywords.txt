@@ -1,0 +1,52 @@
+###
+################################################################################
+# keywords.txt
+#
+# NokiaDisplay, Copyright 2014 oldtopman, oldtopman <at> gmail <dot> com
+#
+# Project License: zlib
+################################################################################
+###
+
+######
+##Object names.
+NokiaDisplay		KEYWORD1
+
+######
+##Functions.
+getPixel		KEYWORD2
+setPixel		KEYWORD2
+LCDWrite			KEYWORD2
+gotoPixel		KEYWORD2
+init			KEYWORD2
+updateContrast			KEYWORD2
+updateBrightness		KEYWORD2
+update			KEYWORD2
+clear			KEYWORD2
+mvPrint			KEYWORD2
+print			KEYWORD2
+mvPrint_P			KEYWORD2
+print_P			KEYWORD2
+printChar			KEYWORD2
+mvPrintChar			KEYWORD2
+invertFramebuffer		KEYWORD2
+invertDispalay		KEYWORD2
+drawLine			KEYWORD2
+drawRect			KEYWORD2
+drawCircle		KEYWORD2
+xbmBlitImage_P		KEYWORD2
+ardBlitImage_P		KEYWORD2
+
+#######
+##Variables.
+frameBuffer			KEYWORD2
+cursorX			KEYWORD2
+cursorY			KEYWORD2
+scePin			KEYWORD2
+rstPin			KEYWORD2
+dcPin			KEYWORD2
+sdinPin			KEYWORD2
+sclkPin			KEYWORD2
+blPin			KEYWORD2
+contrast			KEYWORD2
+brightness			KEYWORD2

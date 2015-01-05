@@ -1,0 +1,160 @@
+|<---------------------------------------------------------------------------->|
+documentation.txt
+
+NokiaDisplay, Copyright 2014 oldtopman, oldtopman <at> gmail <dot> com
+
+Project License: zlib
+|<---------------------------------------------------------------------------->|
+
+##
+####################
+TABLE OF CONTENTS
+####################
+##
+
+abm.txt
+  Details of the "abm" format
+
+documentation.txt
+  Table of Contents
+  Overview
+  Configuration
+  Usage
+  To-do
+
+##
+##########
+Overview
+##########
+##
+
+  I'll be honest, there's not a lot of documentation here. At this point in the
+project, there isn't much of a need for it. Nevertheless, there is a requirement
+for some of it, so it's all here.
+
+  An example would be far more useful than stale old documentation, but it's not
+done yet.
+
+  Implementing this library correctly can be broken down into two main parts.
+The first is about configuring the library correctly. This is CRITICAL for
+the successful operation of the display. The second is all about using the
+bundled functions to show things on the display quickly and effectively.
+
+##
+####################
+Configuration
+####################
+##
+
+  First, the object needs to be instantiated. Despite the optimizations, I don't
+recommend creating more than two, just due to the library's large memory
+footprint. There are no other limitations preventing multiple displays from
+being driven (timer conflicts, weird memory hacks, etc).
+
+  Next, the variables must be set. scePin, rstPin, dcPin, sdinPin, sclkPin,
+blPin, as well as contrast and brightness. On the 32u4 based Arduinos (Leonardo,
+Yun, etc.) sdinPin and sdlkPin should be set to negative values. The ideal value
+for contrast varies from display to display, but 55 seems to work well.
+Brightness is also for you to decide, with 255 being the maximum value.
+
+  Finally, init should be called. If it returns false, then your display has
+been configured (hopefully correctly) and is ready for use!
+
+##
+##########
+Usage
+##########
+##
+
+  There are a lot of functions in this library, several of which serve almost
+identical purposes. I will explain all of them here briefly, in order of
+appearance in the source code.
+
+  Please see NokiaDisplay.h for complete details on calling these functions.
+NokiaDisplay.cpp should answer any further questions for a given function.
+
+  Most of the redundancies are provided for support of variables in PROGMEM.
+This especially applies to text handling functions, as well as graphical
+functions.
+
+  Several more redundancies are created in linear vs. x/y addressing of the
+framebuffer. I prefer x,y addressing, but split the function so that the faster
+linear addressing can also be used elsewhere.
+
+getPixel()
+  These two functions return true or false depending on whether or not a pixel
+is black or white at the specified address. There are both linear and x,y
+versions of this function.
+
+setPixel()
+  This function sets a pixel black or white at the specified address.
+
+LCDWrite()
+  This function is used internally to send commands to the display.
+
+gotoPixel()
+  This function sets both the display's cursor and the recorded cursor position
+to the provided x,y address.
+
+init()
+  This function initializes the display, and can only be called after setting
+the variables for pins as described above in Configuration.
+
+updateContrast()
+  When adjusting the contrast variable, the change needs to be pushed to the
+display with this function.
+
+updateBrightness()
+  When adjusting the brightness variable, the change needs to be pushed to the
+display with this function.
+
+update()
+  The framebuffer is written to the display.
+
+clear()
+  The framebuffer is cleared with black or white.
+
+mvPrint()
+  This prints the provided string to the display at the provided location. There
+is a _P version that expects PROGMEM strings.
+
+print()
+  This prints the provided string to the display at the cursor. There is a _P
+version that expects PROGMEM strings.
+
+printChar()
+  This prints a single character to the display. This function exists to cut
+down on code copying from the previous two functions and their _P counterparts.
+
+mvPrintChar()
+  This prints a single character to the display at a given position. This
+function exists to cut down on code copying from the previous two functions and
+their _P counterparts.
+
+invertFramebuffer()
+  This inverts the framebuffer.
+
+invertDisplay()
+  This inverts the display, and persists until updateContrast is called.
+
+drawLine()
+  Draws a line. From Sparkfun's original library.
+
+drawRect()
+  Draws a rectangle. From Sparkfun's original library.
+
+drawCircle()
+  Draws a circle. From Sparkfun's original library.
+
+xbmBlitImage()
+  Blits an XBM image to the framebuffer. These can be generated fairly easily in
+The GIMP.
+
+ardBlitImage()
+  Blits an ARD image to the framebuffer. This (almost hypothetical) format is
+trivial for the display to understand. The images in the original Sparkfun demo
+were in this format. Unfortunately, it is very difficult to understand, as well
+as impossible to work with. The GIMP has no "ard" image output, so there's no
+point in working with this format. Furthermore, the framebuffer I use is not
+ordered in the same way as these images, making them slower than xbm images.
+DO NOT USE IMAGES, DO NOT USE THIS FUNCTION, ETC, ETC.
